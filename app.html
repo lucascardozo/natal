@@ -5,8 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <title>Natal</title>
+    	<!-- CSS -->
+        <link href="css/main.css?vs=01" rel="stylesheet">
+        <link href="css/preloader.css?vs=01" rel="stylesheet">
+	<style>#marca-logo{height:6em;right:5px;line-height:3;position:fixed;bottom:1em;}</style>
         <!-- JS -->
         <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    	<script src="aframe-ar.js"></script>
         <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-detector.js"></script>
         <script src="https://raw.githack.com/AR-js-org/studio-backend/master/src/modules/marker/tools/gesture-handler.js"></script>
@@ -34,8 +39,8 @@
         >
         <!-- Lista de assets -->
             <a-assets>
-                <a-asset-item id="animated-asset-01" src="assets/noel.gltf?vs=01"></a-asset-item>
-                <audio id="sound-01" src="assets/noel.mp3?vs=01" preload="auto"></audio>
+                <a-asset-item id="animated-asset-01" src="noel.gltf?vs=01"></a-asset-item>
+                <audio id="sound-01" src="noel.mp3?vs=01" preload="auto"></audio>
             </a-assets>
             <!-- Fim Lista de assets -->
 
@@ -44,7 +49,7 @@
                 id="animated-marker-01"
                 type="pattern"
                 preset="custom"
-                url="assets/noel.patt?vs=02"
+                url="noel.patt?vs=02"
                 raycaster="objects: .clickable"
                 emitevents="true"
                 cursor="fuse: false; rayOrigin: mouse;"
