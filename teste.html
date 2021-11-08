@@ -3,6 +3,50 @@
     <script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
     <!-- we import arjs version without NFT but with marker + location based support -->
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script>
+        AFRAME.registerComponent('modify-materials', {
+          init: function () {
+           
+              let el = this.el;
+              let self = this;
+              self.objetos = [];
+              
+              el.addEventListener("model-loaded", e => {
+                  let objetos3D = el.getObject3D('mesh');
+                  if (!objetos3D){return;}    
+                  //console.log('objetos', objetos3D);
+                  objetos3D.traverse(function(node){
+                      
+                      if (node.isMesh){
+                          // console.log(node);
+                          self.objetos.push(node);
+                          if(node.name == "meta02t"){
+                              self.objetos = node.material;
+                          }
+                          node.material.map = null;
+                      }
+                 });
+             });
+              
+             el.addEventListener('changecolor', e =>{          　  
+               // set the new color
+               let colorp = e.detail.color;
+               let colorHex = Number(colorp.replace('#', '0x'));
+               let color3D = new THREE.Color(colorHex);
+               // apply for the "metal" materials 
+               for (var i = 0; i < self.objetos.length; i++) {
+                  if (!self.objetos[i].material) return
+                  if (self.objetos[i].name.includes("meta")) {
+                    self.objetos[i].material.metalness = 0.7
+                    self.objetos[i].material.roughness = 0.2
+                    self.objetos[i].material.color = color3D;
+                  }
+               }
+            });
+              
+          }
+        });
+      </script>
     <body style="margin : 0px; overflow: hidden;">
         <a-scene renderer="logarithmicDepthBuffer: true" embedded arjs>
         <a-marker preset="hiro">
@@ -14,7 +58,7 @@
             gltf-model="noel.gltf"
             ></a-entity>
         </a-marker>
-        <a-entity camera></a-entity>
+        <a-entity camera modify-materials ></a-entity>
         </a-scene>
     </body>
 </html>
